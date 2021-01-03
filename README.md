@@ -212,9 +212,24 @@ $ cat ~/.bash_profile
 [ "$(tty)" = /dev/tty1 ] && exec startx -- vt1 &> /dev/null
 ```
 
-and all is fine and dandy. Now for whatever reason, `~/.local/share/xorg/Xorg.0.log` is completely empty, so this section is a bust as I don't see `Xorg` logs anywhere else on my system. 
+and all is fine and dandy. These logs are taken from `/var/log/Xorg.0.log` found via:
 
-## systemd-loging
+```
+sudo updatedb
+locate Xorg.0.log
+```
+
+and can be found [here](success.log). These are notably missing the _ERROR_ level logs from my attempts with `systemd`, noting:
+
+```
+Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) xf86OpenConsole: setpgid failed: Operation not permitted
+Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) xf86OpenConsole: setsid failed: Operation not permitted
+Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) Falling back to old probe method for fbdev
+```
+
+which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service?
+
+## systemd-logind
 
 The journal also shows the following at _INFO_ level, so I presume it isn't important:
 

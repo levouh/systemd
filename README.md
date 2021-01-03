@@ -212,7 +212,7 @@ $ cat ~/.bash_profile
 [ "$(tty)" = /dev/tty1 ] && exec startx -- vt1 &> /dev/null
 ```
 
-and all is fine and dandy. Then, looking at `~/.local/share/xorg/Xorg.0.log`:
+and all is fine and dandy. Now for whatever reason, `~/.local/share/xorg/Xorg.0.log` is completely empty, so this section is a bust as I don't see `Xorg` logs anywhere else on my system. 
 
 ## systemd-loging
 

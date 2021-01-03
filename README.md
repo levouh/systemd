@@ -213,3 +213,13 @@ $ cat ~/.bash_profile
 ```
 
 and all is fine and dandy. Then, looking at `~/.local/share/xorg/Xorg.0.log`:
+
+## systemd-loging
+
+The journal also shows the following at _INFO_ level, so I presume it isn't important:
+
+```
+Jan 03 14:36:58 thiccpad Xorg[1829]: (II) systemd-logind: logind integration requires -keeptty and -keeptty was not provided, disabling logind integration
+```
+
+but I'm not really sure.

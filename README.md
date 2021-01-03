@@ -215,8 +215,7 @@ $ cat ~/.bash_profile
 and all is fine and dandy. These logs are taken from `/var/log/Xorg.0.log` found via:
 
 ```
-sudo updatedb
-locate Xorg.0.log
+$ sudo updatedb && locate Xorg.0.log
 ```
 
 and can be found [here](success.log). These are notably missing the _WARNING_ level logs noted in [this section](#journal-xorg-warnings) which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service?

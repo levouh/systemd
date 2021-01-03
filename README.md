@@ -1,4 +1,4 @@
-# Xorg as a service
+# Xorg as a systemd user service
 
 This is my attempt at getting `Xorg` to run as a user service, mostly following what I've found [here](https://wiki.archlinux.org/index.php/systemd/User#Xorg_as_a_systemd_user_service) and [here](https://github.com/gtmanfred/systemd-user).
 

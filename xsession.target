@@ -1,3 +1,0 @@
-[Unit]
-Description=Manually started target to denote that an X session has started
-BindsTo=graphical-session.target

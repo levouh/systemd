@@ -1,0 +1,13 @@
+[Unit]
+Description=bspwm: Binary space partitioning window manager
+Requires=sxhkd.service
+After=sxhkd.service
+
+[Service]
+Environment=DISPLAY=:0
+Environment=PATH=/home/amasquelier/.local/bin/perl:/home/amasquelier/.local/lib/bash:/home/amasquelier/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/amasquelier/.fzf/bin
+ExecStart=/usr/bin/bspwm -c /home/amasquelier/.config/bspwm/bspwmrc
+Restart=on-failure
+
+[Install]
+WantedBy=wm.target

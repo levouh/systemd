@@ -1,0 +1,6 @@
+[Unit]
+Description=mine: User target
+After=xorg.target
+
+[Install]
+Alias=default.target

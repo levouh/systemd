@@ -1,0 +1,9 @@
+[Unit]
+Description=wm: Window manager
+Wants=xorg.target
+Wants=mine.target
+Requires=dbus.socket
+AllowIsolate=true
+
+[Install]
+Alias=default.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=inputplug: Trigger scripts on X11 input change events
+Documentation=https://github.com/andrewshadura/inputplug
+
+[Service]
+ExecStart=%h/.local/bin/inputplug -c %h/.local/bin/events/input
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

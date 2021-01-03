@@ -1,0 +1,11 @@
+[Unit]
+Description=srandrd: Trigger scripts on X11 display events
+Documentation=https://github.com/jceb/srandrd
+
+[Service]
+ExecStart=%h/.local/bin/srandrd -n %h/.local/bin/events/display
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

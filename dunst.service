@@ -1,0 +1,11 @@
+[Unit]
+Description=dunst: Notification daemon
+Documentation=https://github.com/dunst-project/dunst
+
+[Service]
+ExecStart=/usr/local/bin/dunst
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

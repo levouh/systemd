@@ -1,0 +1,10 @@
+[Unit]
+Description=batteryd: Send notification as battery gets low
+
+[Service]
+ExecStart=/usr/bin/perl %h/.local/bin/perl/batteryd --limit 20
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

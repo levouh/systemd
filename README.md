@@ -157,7 +157,7 @@ but I've not got much idea what to make of these. Googling leads to [here](https
 
 >I fixed the problem xf86OpenConsole: setpgid failed: Operation not permitted by starting serverX with root privilege.
 
-be involved here? Doesn't seem related to me.
+be involved here? From [this-section](comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it.
 
 ## freedesktop.problems in journal
 
@@ -203,7 +203,7 @@ systemctl --user set-environment XDG_VTNR=1
 
 but again, no success there.
 
-## Comparing to a "successful" Xorg boot 
+## Comparing to a successful Xorg boot
 
 Here I say "successful" as this is not what I'm trying to do, but as you'd expect, it works. I mentioned before that for the successful method, I simply do:
 
@@ -219,15 +219,7 @@ sudo updatedb
 locate Xorg.0.log
 ```
 
-and can be found [here](success.log). These are notably missing the _ERROR_ level logs from my attempts with `systemd`, noting:
-
-```
-Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) xf86OpenConsole: setpgid failed: Operation not permitted
-Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) xf86OpenConsole: setsid failed: Operation not permitted
-Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) Falling back to old probe method for fbdev
-```
-
-which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service?
+and can be found [here](success.log). These are notably missing the _WARNING_ level logs noted in [this section](#journal-xorg-warnings) which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service?
 
 ## systemd-logind
 

@@ -157,7 +157,7 @@ but I've not got much idea what to make of these. Googling leads to [here](https
 
 >I fixed the problem xf86OpenConsole: setpgid failed: Operation not permitted by starting serverX with root privilege.
 
-be involved here? From [this-section](comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it.
+be involved here? From [this section](#comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it.
 
 ## freedesktop.problems in journal
 

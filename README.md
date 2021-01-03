@@ -176,6 +176,12 @@ GRUB_ENABLE_BLSCFG=true
 
 I do have `nouveau.modeset=0` (not entirely sure why), but I would imagine is unrelated, especially as I can get a normal startup via `startx`. Not really sure here though, hence why I'm looking again for help.
 
+Also via [here](https://www.systutorials.com/docs/linux/man/5-Xwrapper.config/), it looks like the settings of `allowed_users=anybody` and `needs_root_rights=yes` are exactly what would help this? Might they not be working for some reason? The wrapper looks like:
+
+```
+-rw-r--r--. 1 root root 44 Jan  2 10:08 /etc/X11/Xwrapper.config
+```
+
 ## freedesktop.problems in journal
 
 I see various things in the journal mentioning `freedesktop.problems@0.service`, however, I see the same thing when I go the `startx` route:

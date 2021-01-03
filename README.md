@@ -134,7 +134,7 @@ ps aux | grep -iE "bspwm|sxhkd"
 ```
 and note that they are _both_ indeed running.
 
-The journal shows a similar conclusion, as seen in [boot.log](boot.log).
+The journal shows a similar conclusion, as seen in [boot.log](boot.log), roughly [here](https://github.com/levouh/systemd/blob/27b61fc8459cd3cf5fc4e161f3f83a02776b113e/boot.log#L2135).
 
 # Troubleshooting
 

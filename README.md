@@ -159,6 +159,23 @@ but I've not got much idea what to make of these. Googling leads to [here](https
 
 be involved here? From [this section](#comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it. Presumably this is why the `Xwrapper` configuration is needed, but seeing as that is done, I'm not sure where else to look.
 
+A little bit more research [here](https://forums.gentoo.org/viewtopic-p-6532657.html) notes something about `modeset`, so looking at my own `/etc/default/grub`:
+
+```
+$ cat /etc/default/grub
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 nouveau.modeset=0 rd.plymouth=0 plymouth.enable=0"
+GRUB_CMDLINE_LINUX="resume=/dev/mapper/fedora-swap rd.lvm.lv=fedora/root rd.lvm.lv=fedora/swap"
+GRUB_DISABLE_RECOVERY="true"
+GRUB_ENABLE_BLSCFG=true
+```
+
+I do have `nouveau.modeset=0` (not entirely sure why), but I would imagine is unrelated, especially as I can get a normal startup via `startx`. Not really sure here though, hence why I'm looking again for help.
+
 ## freedesktop.problems in journal
 
 I see various things in the journal mentioning `freedesktop.problems@0.service`, however, I see the same thing when I go the `startx` route:

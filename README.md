@@ -55,6 +55,7 @@ PRIVACY_POLICY_URL="https://fedoraproject.org/wiki/Legal:PrivacyPolicy"
 ```
 $ cat /etc/X11/Xwrapper.config
 allowed_users=anybody
+needs_root_rights=yes
 ```
 2. Setup various `systemd` units, see the files listed in the repository here.
 3. Enable units:
@@ -158,7 +159,7 @@ but I've not got much idea what to make of these. Googling leads to [here](https
 
 be involved here? Doesn't seem related to me.
 
-## freedesktop.problems@0.service
+## freedesktop.problems in journal
 
 I see various things in the journal mentioning `freedesktop.problems@0.service`, however, I see the same thing when I go the `startx` route:
 

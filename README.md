@@ -157,7 +157,7 @@ but I've not got much idea what to make of these. Googling leads to [here](https
 
 >I fixed the problem xf86OpenConsole: setpgid failed: Operation not permitted by starting serverX with root privilege.
 
-be involved here? From [this section](#comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it.
+be involved here? From [this section](#comparing-to-a-successful-xorg-boot), I noticed that these warnings are _not_ present in a [successful boot](success.log). This seems to be the problem, but I'm not entirely sure what I can do about it. Presumably this is why the `Xwrapper` configuration is needed, but seeing as that is done, I'm not sure where else to look.
 
 ## freedesktop.problems in journal
 
@@ -218,7 +218,7 @@ and all is fine and dandy. These logs are taken from `/var/log/Xorg.0.log` found
 $ sudo updatedb && locate Xorg.0.log
 ```
 
-and can be found [here](success.log). These are notably missing the _WARNING_ level logs noted in [this section](#journal-xorg-warnings) which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service?
+and can be found [here](success.log). These are notably missing the _WARNING_ level logs noted in [this section](#journal-xorg-warnings) which are **not** present in the successful logs. So, if I need to run as `root` to circumvent this, how do I run `Xorg` as a **user** service? Presumably this is why the `Xwrapper` configuration is needed, but seeing as that is done, I'm not sure where else to look.
 
 ## systemd-logind
 

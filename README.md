@@ -27,6 +27,26 @@ $ systemctl --version
 systemd 245 (v245.8-2.fc32)
 +PAM +AUDIT +SELINUX +IMA -APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD +IDN2 -IDN +PCRE2 defau
 lt-hierarchy=unified
+$ cat /etc/os-release
+NAME=Fedora
+VERSION="32 (Thirty Two)"
+ID=fedora
+VERSION_ID=32
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f32"
+PRETTY_NAME="Fedora 32 (Thirty Two)"
+ANSI_COLOR="0;34"
+LOGO=fedora-logo-icon
+CPE_NAME="cpe:/o:fedoraproject:fedora:32"
+HOME_URL="https://fedoraproject.org/"
+DOCUMENTATION_URL="https://docs.fedoraproject.org/en-US/fedora/f32/system-administrators-guide/"
+SUPPORT_URL="https://fedoraproject.org/wiki/Communicating_and_getting_help"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
+REDHAT_BUGZILLA_PRODUCT="Fedora"
+REDHAT_BUGZILLA_PRODUCT_VERSION=32
+REDHAT_SUPPORT_PRODUCT="Fedora"
+REDHAT_SUPPORT_PRODUCT_VERSION=32
+PRIVACY_POLICY_URL="https://fedoraproject.org/wiki/Legal:PrivacyPolicy"
 ```
 
 # Setup
@@ -117,6 +137,8 @@ The journal shows a similar conclusion, as seen in [boot.log](boot.log).
 
 # Troubleshooting
 
+## journal Xorg Warnings
+
 Looking at the journal with:
 ```
 journalctl -b -1 | grep -iE "(xorg.*(\(WW\)|\(EE\)))|(dbus)"
@@ -130,4 +152,63 @@ Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) xf86OpenConsole: setsid failed: Operat
 Jan 03 14:28:14 thiccpad Xorg[1778]: (WW) Falling back to old probe method for fbdev
 ```
 
-but I've not got much idea what to make of these. Googling the error leads to `systemd` _Github_ issues, but most are beyond anything that I understand at the moment.
+but I've not got much idea what to make of these. Googling leads to [here](https://bugs.freedesktop.org/show_bug.cgi?id=99003), but as far as I understand, the entire point is to run `Xorg` as a user? So why would:
+
+>I fixed the problem xf86OpenConsole: setpgid failed: Operation not permitted by starting serverX with root privilege.
+
+be involved here? Doesn't seem related to me.
+
+## freedesktop.problems@0.service
+
+I see various things in the journal mentioning `freedesktop.problems@0.service`, however, I see the same thing when I go the `startx` route:
+
+```
+Jan 03 14:44:11 thiccpad systemd[1]: Created slice system-dbus\x2d:1.4\x2dorg.freedesktop.problems.slice.
+Jan 03 14:44:11 thiccpad systemd[1]: Started dbus-:1.4-org.freedesktop.problems@0.service.
+```
+
+which does start `bspwm`, etc. successfully. This is done via setting up my `~/.bash_profile` like so:
+
+```
+$ cat ~/.bash_profile
+[ "$(tty)" = /dev/tty1 ] && exec startx -- vt1 &> /dev/null
+```
+
+and like I said, works just fine, but is beside the point here.
+
+## Looking at startx script
+
+Looking at the provided `startx` script in `/usr/bin/startx`, there are places where it does:
+
+```
+...
+unset DBUS_SESSION_BUS_ADDRESS
+unset SESSION_MANAGER
+...
+```
+
+so I've done similar in my `~/.bash_profile`:
+
+```
+export DISPLAY=0
+export XAUTHORITY="$HOME/.Xauthority"
+
+unset DBUS_SESSION_BUS_ADDRESS
+unset SESSION_MANAGER
+
+systemctl --user import-environment DISPLAY XAUTHORITY PATH DBUS_SESSION_BUS_ADDRESS SESSION_MANAGER
+systemctl --user set-environment XDG_VTNR=1
+```
+
+but again, no success there.
+
+## Comparing to a "successful" Xorg boot 
+
+Here I say "successful" as this is not what I'm trying to do, but as you'd expect, it works. I mentioned before that for the successful method, I simply do:
+
+```
+$ cat ~/.bash_profile
+[ "$(tty)" = /dev/tty1 ] && exec startx -- vt1 &> /dev/null
+```
+
+and all is fine and dandy. Then, looking at `~/.local/share/xorg/Xorg.0.log`:
